@@ -13,6 +13,41 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  ...compat.extends("standard", "plugin:tailwindcss/recommended", "prettier"),
+  {
+    rules: {
+      "no-undef": "off",
+      "import/order": [
+        "error",
+        {
+          groups: [
+            "builtin",
+            "external",
+            "internal",
+            ["sibling", "parent"],
+            "index",
+            "object",
+          ],
+          "newlines-between": "always",
+          pathGroups: [
+            {
+              pattern: "@app/**",
+              group: "external",
+              position: "after",
+            },
+          ],
+          pathGroupsExcludedImportTypes: ["builtin"],
+          alphabetize: { order: "asc", caseInsensitive: true },
+        },
+      ],
+    },
+  },
+  {
+    files: ["*.ts", "*.tsx"],
+    rules: {
+      "no-undef": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;
